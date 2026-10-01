@@ -119,6 +119,7 @@ export default function Home() {
                 src="/media/freshko/pricing-poster.webp"
                 alt="Freshko objavljeni cjenovnik za namještaj i dušeke"
                 fill
+                loading="eager"
                 sizes="(max-width: 980px) 100vw, 42vw"
               />
             </div>
