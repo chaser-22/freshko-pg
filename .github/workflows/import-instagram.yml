@@ -11,6 +11,7 @@ permissions:
 jobs:
   import-media:
     runs-on: ubuntu-latest
+    timeout-minutes: 4
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,8 +19,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install Instagram reader
-        run: pip install --disable-pip-version-check instaloader requests
+      - name: Install HTTP client
+        run: pip install --disable-pip-version-check requests
       - name: Download public Freshko images
         shell: bash
         run: |
@@ -27,66 +28,57 @@ jobs:
           from pathlib import Path
           import json
           import requests
-          import instaloader
 
           username = "freshko.pg"
           output = Path("public/media/freshko")
           output.mkdir(parents=True, exist_ok=True)
 
-          loader = instaloader.Instaloader(
-              download_pictures=False,
-              download_videos=False,
-              download_video_thumbnails=False,
-              download_geotags=False,
-              download_comments=False,
-              save_metadata=False,
-              compress_json=False,
-              quiet=True,
-          )
+          headers = {
+              "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36",
+              "X-IG-App-ID": "936619743392459",
+              "Accept": "*/*",
+              "Referer": f"https://www.instagram.com/{username}/",
+          }
 
-          profile = instaloader.Profile.from_username(loader.context, username)
+          profile_url = f"https://www.instagram.com/api/v1/users/web_profile_info/?username={username}"
+          response = requests.get(profile_url, headers=headers, timeout=20)
+          response.raise_for_status()
+          payload = response.json()
+          user = payload.get("data", {}).get("user") or {}
+          edges = (user.get("edge_owner_to_timeline_media") or {}).get("edges") or []
+
           manifest = []
-          count = 0
+          image_urls = []
+          for edge in edges:
+              node = edge.get("node") or {}
+              shortcode = node.get("shortcode", "")
+              caption_edges = (node.get("edge_media_to_caption") or {}).get("edges") or []
+              caption = caption_edges[0].get("node", {}).get("text", "") if caption_edges else ""
+              taken = node.get("taken_at_timestamp")
+              sidecar = (node.get("edge_sidecar_to_children") or {}).get("edges") or []
 
-          for post in profile.get_posts():
-              if count >= 12:
-                  break
+              if sidecar:
+                  for child in sidecar:
+                      child_node = child.get("node") or {}
+                      if not child_node.get("is_video") and child_node.get("display_url"):
+                          image_urls.append((child_node["display_url"], shortcode, taken, caption))
+              elif not node.get("is_video") and node.get("display_url"):
+                  image_urls.append((node["display_url"], shortcode, taken, caption))
 
-              nodes = []
-              if post.typename == "GraphSidecar":
-                  nodes = [node for node in post.get_sidecar_nodes() if not node.is_video]
-              elif not post.is_video:
-                  nodes = [post]
-
-              for node in nodes:
-                  if count >= 12:
-                      break
-                  url = getattr(node, "display_url", None) or getattr(node, "url", None)
-                  if not url:
-                      continue
-
-                  response = requests.get(
-                      url,
-                      timeout=30,
-                      headers={
-                          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36",
-                          "Referer": f"https://www.instagram.com/{username}/",
-                      },
-                  )
-                  response.raise_for_status()
-
-                  filename = f"ig-{count + 1:02d}.jpg"
-                  (output / filename).write_bytes(response.content)
-                  manifest.append({
-                      "file": f"/media/freshko/{filename}",
-                      "shortcode": post.shortcode,
-                      "date": post.date_utc.isoformat(),
-                      "caption": (post.caption or "")[:400],
-                  })
-                  count += 1
+          for index, (url, shortcode, taken, caption) in enumerate(image_urls[:12], start=1):
+              image_response = requests.get(url, headers=headers, timeout=25)
+              image_response.raise_for_status()
+              filename = f"ig-{index:02d}.jpg"
+              (output / filename).write_bytes(image_response.content)
+              manifest.append({
+                  "file": f"/media/freshko/{filename}",
+                  "shortcode": shortcode,
+                  "taken_at": taken,
+                  "caption": caption[:500],
+              })
 
           if not manifest:
-              raise RuntimeError("No public Freshko images were returned by Instagram")
+              raise RuntimeError("Instagram returned no public Freshko image media")
 
           (output / "manifest.json").write_text(
               json.dumps(manifest, ensure_ascii=False, indent=2),
