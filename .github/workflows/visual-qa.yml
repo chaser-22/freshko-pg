@@ -1,0 +1,74 @@
+name: Visual QA
+
+on:
+  push:
+    paths:
+      - ".github/workflows/visual-qa.yml"
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install app and browser
+        run: |
+          npm install --no-audit --no-fund
+          npm install --no-save playwright@1.56.0
+          npx playwright install --with-deps chromium
+      - name: Build app
+        run: npm run build
+      - name: Start app
+        run: |
+          npm start > /tmp/freshko-next.log 2>&1 &
+          for i in {1..40}; do
+            if curl -fsS http://127.0.0.1:3000 >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/freshko-next.log
+          exit 1
+      - name: Capture all pages
+        run: |
+          mkdir -p qa-screenshots
+          node <<'NODE'
+          const { chromium } = require("playwright");
+          (async () => {
+            const browser = await chromium.launch();
+            const routes = [
+              ["home", "/"],
+              ["privacy", "/privatnost"],
+              ["cookies", "/kolacici"],
+            ];
+            const sizes = [
+              ["desktop", { width: 1440, height: 1000 }],
+              ["mobile", { width: 390, height: 844 }],
+            ];
+            for (const [sizeName, viewport] of sizes) {
+              const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
+              const page = await context.newPage();
+              for (const [routeName, route] of routes) {
+                await page.goto("http://127.0.0.1:3000" + route, { waitUntil: "networkidle" });
+                if (route === "/") await page.waitForTimeout(3200);
+                await page.screenshot({
+                  path: `qa-screenshots/${routeName}-${sizeName}.png`,
+                  fullPage: true,
+                });
+              }
+              await context.close();
+            }
+            await browser.close();
+          })();
+          NODE
+      - name: Upload QA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: freshko-visual-qa
+          path: |
+            qa-screenshots
+            public/media/freshko
+          if-no-files-found: warn
