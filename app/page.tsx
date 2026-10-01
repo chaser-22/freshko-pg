@@ -26,44 +26,35 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Intro />
       <SmoothMotion />
-      <div className="pointer-glow" aria-hidden="true" />
-      <div className="ambient ambient-a" aria-hidden="true" />
-      <div className="ambient ambient-b" aria-hidden="true" />
       <Header />
 
       <main id="main">
-        <section className="hero" id="top">
-          <div className="hero-grid">
+        <section className="hero hero-photo-led" id="top">
+          <Image
+            className="hero-cover"
+            src="/media/freshko/generated/upholstery.png"
+            alt="Premium editorial vizual dubinskog čišćenja namještaja za Freshko"
+            fill
+            priority
+            quality={95}
+            sizes="100vw"
+          />
+          <div className="hero-content">
             <div className="hero-copy">
-              <p className="hero-overline">DUBINSKO ČIŠĆENJE · PODGORICA</p>
+              <p className="hero-overline">FRESHKO · DUBINSKO ČIŠĆENJE · PODGORICA</p>
               <h1>Vraćamo <em>svježinu</em> vašem domu.</h1>
-              <p className="hero-lead">Dubinsko čišćenje namještaja, dušeka i tepiha u Podgorici, uz dolazak na kućnu adresu.</p>
+              <p className="hero-lead">Profesionalno dubinsko čišćenje namještaja, dušeka i tepiha uz dolazak na kućnu adresu.</p>
               <div className="hero-actions">
                 <a className="primary-action" href="#zakazi">Zakaži čišćenje <ArrowUpRight size={18} /></a>
-                <a className="secondary-action" href="#rezultati">Pogledaj rezultate <ArrowDownRight size={18} /></a>
-              </div>
-              <div className="hero-contact">
-                <a href={brand.phoneHref}>{brand.phone} · {brand.contactName}</a>
-                <span>DM · @freshko.pg</span>
+                <a className="secondary-action" href="#rezultati">Stvarni rezultati <ArrowDownRight size={18} /></a>
               </div>
             </div>
-            <div className="hero-art">
-              <div className="hero-poster">
-                <Image
-                  src="/media/freshko/hq/hero-brand.png"
-                  alt="Freshko oprema za dubinsko čišćenje"
-                  fill
-                  priority
-                  quality={95}
-                  sizes="(max-width: 980px) 88vw, 42vw"
-                />
-              </div>
-              <div className="hero-badge" aria-hidden="true"><strong>F</strong><small>PG / FRESH</small></div>
+
+            <div className="hero-facts">
+              <a href={brand.phoneHref}><span>Kontakt</span><strong>{brand.phone} · {brand.contactName}</strong></a>
+              <div><span>Lokacija</span><strong>Podgorica · dolazak na adresu</strong></div>
+              <a href={instagramUrl} target="_blank" rel="noreferrer"><span>Instagram</span><strong>@freshko.pg ↗</strong></a>
             </div>
-          </div>
-          <div className="hero-bottom">
-            <span>NAMJEŠTAJ / DUŠECI / TEPISI</span>
-            <span>DOLAZAK NA KUĆNU ADRESU</span>
           </div>
         </section>
 
@@ -82,11 +73,35 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="services section-pad" id="usluge">
+        <section className="photo-story section-pad" aria-label="Freshko premium fotografija">
+          <div className="photo-story-heading" data-reveal>
+            <p className="eyebrow">PREMIUM VIZUELNI IDENTITET</p>
+            <h2>Dom poslije Freshko tretmana treba da izgleda kao mjesto u koje se ponovo zaljubite.</h2>
+          </div>
+          <div className="photo-story-grid">
+            <figure className="story-large" data-reveal>
+              <Image src="/media/freshko/generated/armchair.png" alt="Premium Freshko vizual čistog žutog naslonjača" fill quality={95} sizes="(max-width: 900px) 100vw, 58vw" />
+              <figcaption><span>01</span><strong>Namještaj</strong></figcaption>
+            </figure>
+            <div className="story-stack">
+              <figure data-reveal>
+                <Image src="/media/freshko/generated/mattress.png" alt="Premium Freshko vizual dubinskog čišćenja dušeka" fill quality={95} sizes="(max-width: 900px) 100vw, 36vw" />
+                <figcaption><span>02</span><strong>Dušeci</strong></figcaption>
+              </figure>
+              <figure data-reveal>
+                <Image src="/media/freshko/generated/carpet.png" alt="Premium Freshko vizual dubinskog čišćenja tepiha" fill quality={95} sizes="(max-width: 900px) 100vw, 36vw" />
+                <figcaption><span>03</span><strong>Tepisi</strong></figcaption>
+              </figure>
+            </div>
+          </div>
+          <p className="photo-story-note">Editorial fotografije predstavljaju vizuelni pravac brenda; stvarne Freshko rezultate pogledajte u sekciji „Prije / Poslije“.</p>
+        </section>
+
+        <section className="services section-pad services-photo-led" id="usluge">
           <div className="section-kicker" data-reveal><span>02</span><p>USLUGE</p></div>
           <div className="services-heading" data-reveal>
-            <p className="eyebrow">FRESHKO / DUBINSKO ČIŠĆENJE</p>
-            <h2>Za dom. Za osjećaj svježine.</h2>
+            <p className="eyebrow">TRI GLAVNE USLUGE</p>
+            <h2>Dubinski tretman, premium osjećaj.</h2>
           </div>
           <div className="service-list">
             {services.map((service, index) => (
@@ -95,11 +110,11 @@ export default function Home() {
                 <div className="service-media">
                   <Image
                     src={service.image}
-                    alt={`${service.title} — Freshko rad`}
+                    alt={`${service.title} — Freshko editorial vizual`}
                     fill
                     quality={95}
                     priority={index === 0}
-                    sizes="(max-width: 620px) 100vw, (max-width: 980px) 80vw, 42vw"
+                    sizes="(max-width: 620px) 100vw, (max-width: 980px) 90vw, 55vw"
                     style={{ objectPosition: service.mediaPosition }}
                   />
                   <span className="media-chip">{service.eyebrow}</span>
@@ -109,14 +124,25 @@ export default function Home() {
                   <h3>{service.title}</h3>
                   <strong>{service.short}</strong>
                   <span>{service.body}</span>
+                  <a className="service-cta" href="#zakazi">Pošalji upit <ArrowUpRight size={16} /></a>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
+        <section className="results section-pad" id="rezultati">
+          <div className="section-kicker" data-reveal><span>03</span><p>STVARNI REZULTATI</p></div>
+          <div className="results-intro" data-reveal>
+            <p className="eyebrow">FRESHKO / PRIJE I POSLIJE</p>
+            <h2>Ovdje fotografija nije ilustracija.</h2>
+            <p>Povucite klizač i pogledajte stvarne Freshko transformacije sa objavljenih radova.</p>
+          </div>
+          <BeforeAfter />
+        </section>
+
         <section className="pricing section-pad" id="cjenovnik">
-          <div className="section-kicker" data-reveal><span>03</span><p>CJENOVNIK</p></div>
+          <div className="section-kicker" data-reveal><span>04</span><p>CJENOVNIK</p></div>
           <div className="pricing-grid">
             <div className="pricing-poster" data-reveal>
               <Image
@@ -151,16 +177,6 @@ export default function Home() {
               <a className="price-cta" href={brand.phoneHref}>Pozovite {brand.phone} <ArrowUpRight size={17} /></a>
             </div>
           </div>
-        </section>
-
-        <section className="results section-pad" id="rezultati">
-          <div className="section-kicker" data-reveal><span>04</span><p>REZULTATI</p></div>
-          <div className="results-intro" data-reveal>
-            <p className="eyebrow">PRIJE / POSLIJE</p>
-            <h2>Razlika treba da se vidi.</h2>
-            <p>Povucite klizač i uporedite stvarne Freshko rezultate na namještaju i tepihu.</p>
-          </div>
-          <BeforeAfter />
         </section>
 
         <section className="promise section-pad">
