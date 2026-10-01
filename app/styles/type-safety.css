@@ -1,0 +1,93 @@
+/*
+ * Display type safety for Montenegrin / Serbian Latin glyphs.
+ * Syne has tall accents and deep descenders; ultra-tight line-height clips
+ * Č/č/ć/š/ž/đ and the top/bottom of i/j at large display sizes.
+ */
+:where(
+  .hero h1,
+  .hero-photo-led h1,
+  .manifesto h2,
+  .photo-story-heading h2,
+  .services-heading h2,
+  .service-copy h3,
+  .results-intro h2,
+  .pricing-copy h2,
+  .promise-card h2,
+  .booking h2,
+  .faq h2,
+  .footer-cta h2,
+  .legal h1
+) {
+  line-height: 1.08 !important;
+  letter-spacing: -.045em !important;
+  overflow: visible !important;
+  padding-block: .07em .11em;
+  text-wrap: pretty;
+}
+
+:where(
+  .hero-copy,
+  .manifesto-grid,
+  .photo-story-heading,
+  .services-heading,
+  .service-copy,
+  .results-intro,
+  .pricing-copy,
+  .promise-card,
+  .booking-copy,
+  .faq-grid,
+  .footer-cta,
+  .legal
+) {
+  overflow: visible;
+}
+
+/* Give the very largest display lines a little extra air. */
+.hero-photo-led h1,
+.footer-cta h2 {
+  line-height: 1.06 !important;
+  padding-block: .09em .13em;
+}
+
+/* Outline text needs the same breathing room as filled glyphs. */
+.hero h1 em,
+.hero-photo-led h1 em,
+.manifesto h2 em,
+.footer-cta h2 em {
+  line-height: inherit;
+}
+
+/* Prevent text-transform / inline boxes from squeezing diacritics. */
+.eyebrow,
+.hero-overline,
+.section-kicker p,
+.service-copy > p {
+  line-height: 1.45;
+}
+
+/* Mobile keeps the same safe metrics instead of reverting to .98. */
+@media (max-width: 620px) {
+  :where(
+    .hero h1,
+    .hero-photo-led h1,
+    .manifesto h2,
+    .photo-story-heading h2,
+    .services-heading h2,
+    .service-copy h3,
+    .results-intro h2,
+    .pricing-copy h2,
+    .promise-card h2,
+    .booking h2,
+    .faq h2,
+    .footer-cta h2,
+    .legal h1
+  ) {
+    line-height: 1.1 !important;
+    padding-block: .08em .12em;
+  }
+
+  .hero-photo-led h1,
+  .footer-cta h2 {
+    line-height: 1.08 !important;
+  }
+}
