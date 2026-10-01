@@ -8,7 +8,7 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <section className="faq section-pad" id="faq">
-      <div className="section-kicker" data-reveal><span>07</span><p>ČESTA PITANJA</p></div>
+      <div className="section-kicker section-kicker-clean" data-reveal><p>ČESTA PITANJA</p></div>
       <div className="faq-grid">
         <div data-reveal>
           <p className="eyebrow">PRIJE NEGO ŠTO DOĐEMO</p>

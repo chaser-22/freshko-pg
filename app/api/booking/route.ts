@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   if (!body || typeof body !== "object") return NextResponse.json({ error: "Invalid body" }, { status: 400 });
 
-  const { name, phone, email, service, location, message, company } = body as Record<string, string>;
+  const { name, phone, email, service, location, message, company, date, time, details } = body as Record<string, string>;
   if (company) return NextResponse.json({ ok: true });
   if (!name?.trim() || !phone?.trim() || !service?.trim() || !message?.trim()) {
     return NextResponse.json({ error: "Nedostaju obavezna polja" }, { status: 400 });
@@ -17,8 +17,20 @@ export async function POST(request: Request) {
   const to = process.env.BOOKING_TO_EMAIL;
   const from = process.env.BOOKING_FROM_EMAIL;
 
+  const payload = {
+    name,
+    phone,
+    email: email || "—",
+    service,
+    location: location || "—",
+    date: date || "—",
+    time: time || "—",
+    details: details || "—",
+    message,
+  };
+
   if (!apiKey || !to || !from) {
-    console.info("Freshko booking request", { name, phone, email, service, location, message });
+    console.info("Freshko booking request", payload);
     return NextResponse.json({ ok: true, delivered: false });
   }
 
@@ -30,7 +42,18 @@ export async function POST(request: Request) {
       to: [to],
       subject: `Freshko upit — ${service}`,
       reply_to: email || undefined,
-      text: `Ime: ${name}\nTelefon: ${phone}\nEmail: ${email || "—"}\nLokacija: ${location || "—"}\nUsluga: ${service}\n\n${message}`,
+      text: [
+        `Ime: ${name}`,
+        `Telefon: ${phone}`,
+        `Email: ${email || "—"}`,
+        `Lokacija: ${location || "—"}`,
+        `Usluga: ${service}`,
+        `Željeni datum: ${date || "—"}`,
+        `Vrijeme: ${time || "—"}`,
+        "",
+        details || "",
+        message || "",
+      ].join("\n"),
     }),
   });
 

@@ -59,7 +59,7 @@ export default function Home() {
         </section>
 
         <section className="manifesto section-pad" id="proces">
-          <div className="section-kicker" data-reveal><span>01</span><p>FRESHKO PRISTUP</p></div>
+          <div className="section-kicker section-kicker-clean" data-reveal><p>FRESHKO PRISTUP</p></div>
           <div className="manifesto-grid">
             <h2 data-reveal>Čisto, svježe<br /><em>i bez brige.</em></h2>
             <div className="manifesto-copy" data-reveal>
@@ -81,16 +81,16 @@ export default function Home() {
           <div className="photo-story-grid">
             <figure className="story-large" data-reveal>
               <Image src="/media/freshko/generated/armchair.png" alt="Premium Freshko vizual čistog žutog naslonjača" fill quality={95} sizes="(max-width: 900px) 100vw, 58vw" />
-              <figcaption><span>01</span><strong>Namještaj</strong></figcaption>
+              <figcaption><strong>Namještaj</strong></figcaption>
             </figure>
             <div className="story-stack">
               <figure data-reveal>
                 <Image src="/media/freshko/generated/mattress.png" alt="Premium Freshko vizual dubinskog čišćenja dušeka" fill quality={95} sizes="(max-width: 900px) 100vw, 36vw" />
-                <figcaption><span>02</span><strong>Dušeci</strong></figcaption>
+                <figcaption><strong>Dušeci</strong></figcaption>
               </figure>
               <figure data-reveal>
                 <Image src="/media/freshko/generated/carpet.png" alt="Premium Freshko vizual dubinskog čišćenja tepiha" fill quality={95} sizes="(max-width: 900px) 100vw, 36vw" />
-                <figcaption><span>03</span><strong>Tepisi</strong></figcaption>
+                <figcaption><strong>Tepisi</strong></figcaption>
               </figure>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function Home() {
         </section>
 
         <section className="services section-pad services-photo-led" id="usluge">
-          <div className="section-kicker" data-reveal><span>02</span><p>USLUGE</p></div>
+          <div className="section-kicker section-kicker-clean" data-reveal><p>USLUGE</p></div>
           <div className="services-heading" data-reveal>
             <p className="eyebrow">TRI GLAVNE USLUGE</p>
             <h2>Dubinski tretman, premium osjećaj.</h2>
@@ -106,7 +106,6 @@ export default function Home() {
           <div className="service-list">
             {services.map((service, index) => (
               <article className="service-row" key={service.id} data-reveal>
-                <div className="service-number">{service.number}</div>
                 <div className="service-media">
                   <Image
                     src={service.image}
@@ -132,7 +131,7 @@ export default function Home() {
         </section>
 
         <section className="results section-pad" id="rezultati">
-          <div className="section-kicker" data-reveal><span>03</span><p>STVARNI REZULTATI</p></div>
+          <div className="section-kicker section-kicker-clean" data-reveal><p>STVARNI REZULTATI</p></div>
           <div className="results-intro" data-reveal>
             <p className="eyebrow">FRESHKO / PRIJE I POSLIJE</p>
             <h2>Ovdje fotografija nije ilustracija.</h2>
@@ -142,7 +141,7 @@ export default function Home() {
         </section>
 
         <section className="pricing section-pad" id="cjenovnik">
-          <div className="section-kicker" data-reveal><span>04</span><p>CJENOVNIK</p></div>
+          <div className="section-kicker section-kicker-clean" data-reveal><p>CJENOVNIK</p></div>
           <div className="pricing-grid">
             <div className="pricing-poster" data-reveal>
               <Image
@@ -180,13 +179,13 @@ export default function Home() {
         </section>
 
         <section className="promise section-pad">
-          <div className="section-kicker" data-reveal><span>05</span><p>STANDARD</p></div>
+          <div className="section-kicker section-kicker-clean" data-reveal><p>STANDARD</p></div>
           <div className="promise-card" data-reveal>
             <div><p className="eyebrow">FRESHKO STANDARD</p><h2>Bez komplikovanja.<br />Samo dobar proces.</h2></div>
             <ol>
-              <li><span>01</span><div><strong>Dogovor</strong><p>Predmet, lokacija i termin definišemo prije dolaska.</p></div></li>
-              <li><span>02</span><div><strong>Tretman</strong><p>Pristup prilagođen površini i stanju materijala.</p></div></li>
-              <li><span>03</span><div><strong>Finalna provjera</strong><p>Provjera rezultata i jasne instrukcije nakon čišćenja.</p></div></li>
+              <li><div><strong>Dogovor</strong><p>Predmet, lokacija i termin definišemo prije dolaska.</p></div></li>
+              <li><div><strong>Tretman</strong><p>Pristup prilagođen površini i stanju materijala.</p></div></li>
+              <li><div><strong>Finalna provjera</strong><p>Provjera rezultata i jasne instrukcije nakon čišćenja.</p></div></li>
             </ol>
           </div>
         </section>
