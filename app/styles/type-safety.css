@@ -1,8 +1,18 @@
 /*
- * Display type safety for Montenegrin / Serbian Latin glyphs.
- * Syne has tall accents and deep descenders; ultra-tight line-height clips
- * Č/č/ć/š/ž/đ and the top/bottom of i/j at large display sizes.
+ * Freshko typography aligned to White Velvet.
+ * Display: Iowan Old Style / Baskerville / Times stack.
+ * UI/body: Helvetica Neue / Helvetica / Arial.
  */
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 :where(
   .hero h1,
   .hero-photo-led h1,
@@ -16,13 +26,33 @@
   .booking h2,
   .faq h2,
   .footer-cta h2,
-  .legal h1
+  .legal h1,
+  .price-group h3,
+  .promise-card li strong,
+  .faq-item button strong,
+  .mobile-menu nav a
 ) {
-  line-height: 1.08 !important;
-  letter-spacing: -.045em !important;
+  font-family: var(--display) !important;
+  font-weight: 400 !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.035em !important;
   overflow: visible !important;
-  padding-block: .07em .11em;
+  padding-block: .05em .09em;
   text-wrap: pretty;
+  font-kerning: normal;
+}
+
+.hero-photo-led h1,
+.footer-cta h2 {
+  line-height: .98 !important;
+  letter-spacing: -.045em !important;
+}
+
+.service-copy h3,
+.price-group h3,
+.promise-card li strong,
+.faq-item button strong {
+  line-height: 1.08 !important;
 }
 
 :where(
@@ -42,30 +72,79 @@
   overflow: visible;
 }
 
-/* Give the very largest display lines a little extra air. */
-.hero-photo-led h1,
-.footer-cta h2 {
-  line-height: 1.06 !important;
-  padding-block: .09em .13em;
-}
-
-/* Outline text needs the same breathing room as filled glyphs. */
 .hero h1 em,
 .hero-photo-led h1 em,
 .manifesto h2 em,
 .footer-cta h2 em {
+  font-family: inherit;
   line-height: inherit;
 }
 
-/* Prevent text-transform / inline boxes from squeezing diacritics. */
+/* White Velvet-style UI text: clean sans, restrained tracking. */
+:where(
+  .eyebrow,
+  .hero-overline,
+  .section-kicker,
+  .section-kicker p,
+  .service-copy > p,
+  .service-number,
+  .media-chip,
+  .hero-facts,
+  .hero-facts span,
+  .hero-facts strong,
+  .primary-action,
+  .secondary-action,
+  .book-pill,
+  .desktop-nav,
+  .mobile-book,
+  .service-cta,
+  .compare-top,
+  .compare-label,
+  .price-cta,
+  .booking-phone,
+  .booking-points,
+  .booking-form label > span,
+  .submit-button,
+  .footer-grid,
+  .footer-bottom
+) {
+  font-family: var(--sans) !important;
+}
+
 .eyebrow,
 .hero-overline,
 .section-kicker p,
 .service-copy > p {
   line-height: 1.45;
+  letter-spacing: .14em;
 }
 
-/* Mobile keeps the same safe metrics instead of reverting to .98. */
+.hero-lead,
+.manifesto-copy > p,
+.service-copy strong,
+.service-copy > span,
+.results-intro > p:last-child,
+.pricing-lead,
+.price-group-note p,
+.booking-copy > p,
+.faq-answer p,
+.photo-story-note {
+  font-family: var(--sans);
+  letter-spacing: 0;
+}
+
+/* Keep paragraph reading widths and vertical rhythm generous. */
+.hero-lead {
+  line-height: 1.62;
+}
+.manifesto-copy > p,
+.results-intro > p:last-child,
+.pricing-lead,
+.booking-copy > p,
+.faq-answer p {
+  line-height: 1.72;
+}
+
 @media (max-width: 620px) {
   :where(
     .hero h1,
@@ -82,12 +161,22 @@
     .footer-cta h2,
     .legal h1
   ) {
-    line-height: 1.1 !important;
-    padding-block: .08em .12em;
+    line-height: 1.04 !important;
+    letter-spacing: -.03em !important;
+    padding-block: .06em .1em;
   }
 
   .hero-photo-led h1,
   .footer-cta h2 {
-    line-height: 1.08 !important;
+    line-height: 1.01 !important;
+  }
+
+  .hero-lead,
+  .manifesto-copy > p,
+  .results-intro > p:last-child,
+  .pricing-lead,
+  .booking-copy > p,
+  .faq-answer p {
+    line-height: 1.68;
   }
 }
