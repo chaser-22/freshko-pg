@@ -53,7 +53,9 @@ jobs:
             ];
             const sizes = [
               ["desktop", { width: 1440, height: 1000 }],
-              ["mobile", { width: 390, height: 844 }],
+              ["phone-375", { width: 375, height: 812 }],
+              ["phone-393", { width: 393, height: 852 }],
+              ["phone-430", { width: 430, height: 932 }],
             ];
 
             for (const [sizeName, viewport] of sizes) {
@@ -76,10 +78,54 @@ jobs:
                   throw new Error(`Horizontal overflow on ${routeName}-${sizeName}: ${dimensions.scrollWidth}px > ${dimensions.clientWidth}px`);
                 }
 
+                if (sizeName.startsWith("phone")) {
+                  const mobileChecks = await page.evaluate(() => {
+                    const targetSelectors = [
+                      ".menu-button",
+                      ".primary-action",
+                      ".secondary-action",
+                      ".mobile-floating-book",
+                    ];
+                    const undersized = [];
+                    for (const selector of targetSelectors) {
+                      const el = document.querySelector(selector);
+                      if (!el) continue;
+                      const r = el.getBoundingClientRect();
+                      if (r.width < 44 || r.height < 44) undersized.push(`${selector}: ${Math.round(r.width)}x${Math.round(r.height)}`);
+                    }
+                    return { undersized };
+                  });
+                  if (mobileChecks.undersized.length) {
+                    throw new Error(`Small touch targets on ${routeName}-${sizeName}: ${mobileChecks.undersized.join(", ")}`);
+                  }
+                }
+
                 await page.screenshot({
                   path: `qa-screenshots/${routeName}-${sizeName}.png`,
                   fullPage: true,
                 });
+
+                if (routeName === "home" && sizeName === "phone-393") {
+                  await page.locator("#zakazi").scrollIntoViewIfNeeded();
+                  await page.waitForTimeout(150);
+                  const inputFontSizes = await page.evaluate(() =>
+                    Array.from(document.querySelectorAll("#zakazi input, #zakazi textarea, #zakazi select"))
+                      .map((el) => parseFloat(getComputedStyle(el).fontSize))
+                  );
+                  if (inputFontSizes.some((size) => size < 16)) {
+                    throw new Error(`Booking input below 16px on phone: ${inputFontSizes.join(",")}`);
+                  }
+                  const firstChoice = page.locator(".booking-choice").first();
+                  if (await firstChoice.isVisible()) {
+                    await firstChoice.click();
+                    await page.getByRole("button", { name: /Nastavi/i }).click();
+                    await page.waitForTimeout(250);
+                    await page.screenshot({
+                      path: "qa-screenshots/booking-phone-393.png",
+                      fullPage: false,
+                    });
+                  }
+                }
               }
               await context.close();
             }

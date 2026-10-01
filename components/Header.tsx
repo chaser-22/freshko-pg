@@ -43,6 +43,9 @@ export default function Header() {
           </button>
         </div>
       </header>
+      <a className="mobile-floating-book" href="#zakazi" aria-label="Zakaži Freshko čišćenje">
+        Zakaži <ArrowUpRight size={16} />
+      </a>
       <div className="mobile-menu" data-open={open ? "true" : "false"} aria-hidden={!open}>
         <div className="mobile-menu-inner">
           <p>FRESHKO / PODGORICA</p>
