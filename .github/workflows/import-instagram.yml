@@ -21,64 +21,65 @@ jobs:
           python-version: "3.12"
       - name: Install HTTP client
         run: pip install --disable-pip-version-check requests
-      - name: Download public Freshko images
+      - name: Download public Freshko images through reader fallback
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
           import json
+          import re
           import requests
 
-          username = "freshko.pg"
           output = Path("public/media/freshko")
           output.mkdir(parents=True, exist_ok=True)
+          headers = {"User-Agent": "Mozilla/5.0"}
 
-          headers = {
-              "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36",
-              "X-IG-App-ID": "936619743392459",
-              "Accept": "*/*",
-              "Referer": f"https://www.instagram.com/{username}/",
-          }
+          reader_urls = [
+              "https://r.jina.ai/http://www.instagram.com/freshko.pg/",
+              "https://r.jina.ai/https://www.instagram.com/freshko.pg/",
+          ]
 
-          profile_url = f"https://www.instagram.com/api/v1/users/web_profile_info/?username={username}"
-          response = requests.get(profile_url, headers=headers, timeout=20)
-          response.raise_for_status()
-          payload = response.json()
-          user = payload.get("data", {}).get("user") or {}
-          edges = (user.get("edge_owner_to_timeline_media") or {}).get("edges") or []
+          markdown = ""
+          for reader_url in reader_urls:
+              try:
+                  response = requests.get(reader_url, headers=headers, timeout=30)
+                  print("Reader status:", response.status_code, reader_url)
+                  if response.ok and len(response.text) > len(markdown):
+                      markdown = response.text
+              except Exception as exc:
+                  print("Reader error:", repr(exc))
+
+          print(markdown[:5000])
+
+          candidates = []
+          patterns = [
+              r'https://[^\s\)\]"\']+\.cdninstagram\.com/[^\s\)\]"\']+',
+              r'https://[^\s\)\]"\']+fbcdn\.net/[^\s\)\]"\']+',
+              r'!\[[^\]]*\]\((https?://[^\)]+)\)',
+          ]
+          for pattern in patterns:
+              for match in re.findall(pattern, markdown):
+                  url = match if isinstance(match, str) else match[0]
+                  if url not in candidates:
+                      candidates.append(url)
 
           manifest = []
-          image_urls = []
-          for edge in edges:
-              node = edge.get("node") or {}
-              shortcode = node.get("shortcode", "")
-              caption_edges = (node.get("edge_media_to_caption") or {}).get("edges") or []
-              caption = caption_edges[0].get("node", {}).get("text", "") if caption_edges else ""
-              taken = node.get("taken_at_timestamp")
-              sidecar = (node.get("edge_sidecar_to_children") or {}).get("edges") or []
-
-              if sidecar:
-                  for child in sidecar:
-                      child_node = child.get("node") or {}
-                      if not child_node.get("is_video") and child_node.get("display_url"):
-                          image_urls.append((child_node["display_url"], shortcode, taken, caption))
-              elif not node.get("is_video") and node.get("display_url"):
-                  image_urls.append((node["display_url"], shortcode, taken, caption))
-
-          for index, (url, shortcode, taken, caption) in enumerate(image_urls[:12], start=1):
-              image_response = requests.get(url, headers=headers, timeout=25)
-              image_response.raise_for_status()
-              filename = f"ig-{index:02d}.jpg"
-              (output / filename).write_bytes(image_response.content)
-              manifest.append({
-                  "file": f"/media/freshko/{filename}",
-                  "shortcode": shortcode,
-                  "taken_at": taken,
-                  "caption": caption[:500],
-              })
+          for url in candidates:
+              if len(manifest) >= 12:
+                  break
+              try:
+                  image_response = requests.get(url, headers=headers, timeout=25)
+                  content_type = image_response.headers.get("content-type", "")
+                  if not image_response.ok or not content_type.startswith("image/"):
+                      continue
+                  filename = f"ig-{len(manifest) + 1:02d}.jpg"
+                  (output / filename).write_bytes(image_response.content)
+                  manifest.append({"file": f"/media/freshko/{filename}", "source": url})
+              except Exception as exc:
+                  print("Image error:", repr(exc))
 
           if not manifest:
-              raise RuntimeError("Instagram returned no public Freshko image media")
+              raise RuntimeError("Public reader returned no downloadable Freshko images")
 
           (output / "manifest.json").write_text(
               json.dumps(manifest, ensure_ascii=False, indent=2),
