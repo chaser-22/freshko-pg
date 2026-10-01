@@ -1,22 +1,21 @@
 # Freshko — premium website
 
-A production-oriented Next.js website for Freshko, adapted from the interaction architecture and editorial pacing of the White Velvet project while using a distinct Freshko visual system.
+Production-oriented Next.js website for Freshko, adapted from the interaction architecture and editorial pacing of the White Velvet project while using Freshko's own visual identity.
 
-## Visual direction
+## Brand direction
 
-- Deep forest green + electric lime + warm mineral off-white
-- Bold Syne display typography, restrained mono utility labels
-- Premium full-screen loader and kinetic hero art
-- Smooth scrolling, GSAP reveal choreography, pointer-reactive ambient light
-- Editorial service rows, interactive before/after comparison, premium booking flow
+- Freshko black + yellow identity with warm neutral supporting tones
+- Bold Syne display typography and restrained mono utility labels
+- Premium full-screen loader, editorial hero and subtle motion
+- Real Freshko service imagery and before/after results
+- Published Freshko pricing integrated into an accessible pricing section
 - Mobile-first navigation and responsive layout
 - Reduced-motion accessibility support
+- Automated production build and visual screenshot QA
 
-## Content
+## Source material
 
-Business-specific facts that could not be verified from the Instagram profile are deliberately not invented. Contact details and pricing should be added after confirmation. The visible location is Podgorica / surrounding area and the social link points to `@freshko.pg`.
-
-The current service/result imagery references the existing `chaser-22/white-velvet` repository as a visual source. Replace those URLs in `lib/content.ts` with Freshko-owned originals when available.
+The media, phone number, service details and published prices used by the website were taken from Freshko Instagram material supplied directly for this project. The site no longer depends on White Velvet imagery.
 
 ## Booking email
 

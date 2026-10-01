@@ -4,90 +4,112 @@ export const brand = {
   name: "FRESHKO",
   city: "Podgorica",
   area: "Podgorica i okolina",
+  phone: "069 641 937",
+  phoneHref: "tel:069641937",
+  contactName: "Đoko",
 };
-
-const mediaBase = "https://raw.githubusercontent.com/chaser-22/white-velvet/main/public/media";
 
 export const services = [
   {
     id: "namjestaj",
     number: "01",
-    eyebrow: "Dubinsko pranje",
+    eyebrow: "Dubinsko čišćenje",
     title: "Namještaj",
-    short: "Sofe, fotelje, stolice i tekstilni elementi tretirani pažljivo, dubinski i bez improvizacije.",
-    body: "Pristup prilagođavamo materijalu, vrsti zaprljanja i stanju površine — sa fokusom na fleke, prašinu, mirise i ujednačen završni rezultat.",
-    image: `${mediaBase}/service-mobeltvatt-2026.jpg`,
+    short: "Stolice, fotelje, dvosjedi, trosjedi i ugaone garniture — temeljno čišćenje na vašoj adresi.",
+    body: "Pristup prilagođavamo materijalu i stanju površine, sa fokusom na uredan završni rezultat i svježiji osjećaj u prostoru.",
+    mediaPosition: "0% 0%",
   },
   {
     id: "tepisi",
     number: "02",
-    eyebrow: "Tekstilna njega",
+    eyebrow: "Dubinsko čišćenje",
     title: "Tepisi",
-    short: "Kontrolisano dubinsko čišćenje tepiha koje vraća uredan izgled i osjećaj svježine.",
-    body: "Metod biramo prema sastavu, konstrukciji i stanju tepiha. Cilj je temeljno čišćenje uz pažljiv odnos prema vlaknima i boji.",
-    image: `${mediaBase}/service-mattvatt-2026.jpg`,
+    short: "Dubinsko čišćenje tepiha uz procjenu prema veličini i materijalu.",
+    body: "Tretman prilagođavamo vlaknima i stanju tepiha, uz pažljiv rad na vidljivoj prljavštini i tragovima svakodnevne upotrebe.",
+    mediaPosition: "100% 0%",
   },
   {
-    id: "madraci",
+    id: "duseci",
     number: "03",
     eyebrow: "Higijena doma",
-    title: "Madraci",
-    short: "Dubinsko osvježenje površine na kojoj provodite trećinu dana.",
-    body: "Pažljivo tretiramo prašinu, mrlje i tragove svakodnevne upotrebe, uz proces osmišljen za tekstilne površine i brzo vraćanje u upotrebu.",
-    image: `${mediaBase}/service-golvpolering-2026.jpg`,
+    title: "Dušeci",
+    short: "Dubinsko čišćenje malih i velikih dušeka, sa dolaskom na kućnu adresu.",
+    body: "Proces je usmjeren na temeljno osvježenje tekstilne površine i uredan rezultat, uz jasne instrukcije nakon tretmana.",
+    mediaPosition: "0% 100%",
   },
   {
     id: "vozila",
     number: "04",
-    eyebrow: "Enterijer",
+    eyebrow: "Auto enterijer",
     title: "Vozila",
-    short: "Sjedišta, patosnice i tekstilni djelovi enterijera — čisto, precizno i detaljno.",
-    body: "Tretman enterijera prilagođavamo materijalu i intenzitetu korišćenja, sa fokusom na vizuelnu urednost i prijatniji osjećaj u kabini.",
-    image: `${mediaBase}/service-bat-husbil-2026.jpg`,
+    short: "Sjedišta i tekstilni djelovi enterijera — precizno, detaljno i bez preskakanja.",
+    body: "Radimo tekstilne površine u vozilu sa fokusom na vidljivu razliku i prijatniji, uredniji enterijer.",
+    mediaPosition: "100% 100%",
   },
 ];
 
 export const comparisonWork = [
   {
     title: "Namještaj",
-    before: `${mediaBase}/before-mobeltvatt.webp`,
-    after: `${mediaBase}/after-mobeltvatt.webp`,
+    beforePosition: "0% 0%",
+    afterPosition: "100% 0%",
   },
   {
     title: "Tepisi",
-    before: `${mediaBase}/before-mattvatt.webp`,
-    after: `${mediaBase}/after-mattvatt.webp`,
+    beforePosition: "0% 100%",
+    afterPosition: "100% 100%",
+  },
+];
+
+export const priceGroups = [
+  {
+    title: "Namještaj",
+    items: [
+      ["Stolice", "2–4 €"],
+      ["Fotelja", "10 €"],
+      ["Dvosjed", "15 €"],
+      ["Trosjed", "20 €"],
+      ["Mala ugaona", "30 €"],
+      ["Velika ugaona", "40 €"],
+    ],
+  },
+  {
+    title: "Dušeci",
+    items: [
+      ["Mali dušek (samac)", "15 €"],
+      ["Veliki dušek", "25 €"],
+    ],
   },
 ];
 
 export const bookingServices = [
-  "Dubinsko pranje namještaja",
-  "Pranje tepiha",
-  "Pranje madraca",
-  "Dubinsko pranje enterijera vozila",
+  "Dubinsko čišćenje namještaja",
+  "Dubinsko čišćenje tepiha",
+  "Dubinsko čišćenje dušeka",
+  "Dubinsko čišćenje enterijera vozila",
   "Više usluga",
   "Nisam siguran / treba mi preporuka",
 ];
 
 export const faqs = [
   {
+    q: "Da li dolazite na kućnu adresu?",
+    a: "Da. Freshko oglašava dolazak na kućnu adresu u Podgorici. Termin i tačna lokacija potvrđuju se direktno prilikom rezervacije.",
+  },
+  {
+    q: "Koliko košta dubinsko čišćenje?",
+    a: "Objavljeni cjenovnik navodi: stolice 2–4 €, fotelja 10 €, dvosjed 15 €, trosjed 20 €, mala ugaona 30 €, velika ugaona 40 €, mali dušek 15 € i veliki dušek 25 €. Cijena tepiha zavisi od veličine i materijala.",
+  },
+  {
     q: "Koliko traje sušenje?",
-    a: "Vrijeme sušenja zavisi od materijala, debljine tekstila, ventilacije i uslova u prostoru. Nakon pregleda možemo dati realniju procjenu za konkretan predmet.",
-  },
-  {
-    q: "Da li dolazite na adresu?",
-    a: "Upit možete poslati sa adresom i željenim terminom. Dostupnost i uslovi izlaska na teren potvrđuju se prije rezervacije.",
-  },
-  {
-    q: "Kako formirate cijenu?",
-    a: "Cijena zavisi od vrste predmeta, dimenzije, materijala i stanja. Prije rada dobijate jasnu procjenu, bez skrivenih stavki.",
+    a: "Vrijeme sušenja zavisi od materijala, debljine tekstila, ventilacije i uslova u prostoru. Nakon pregleda možete dobiti realniju procjenu za konkretan predmet.",
   },
   {
     q: "Da li uklanjate svaku fleku?",
-    a: "Različite fleke i materijali reaguju različito. Cilj je maksimalno poboljšanje uz bezbjedan tretman materijala, bez obećanja koja se ne mogu profesionalno garantovati.",
+    a: "Različite fleke i materijali reaguju različito. Cilj je maksimalno poboljšanje uz pažljiv tretman materijala, bez obećanja koja nije moguće profesionalno garantovati.",
   },
   {
-    q: "Kako da se pripremim prije dolaska?",
-    a: "Dovoljno je da obezbijedite pristup predmetima koje treba tretirati. Ako je potreban dodatni korak pripreme, dobićete instrukciju prilikom potvrde termina.",
+    q: "Kako da rezervišem termin?",
+    a: "Pošaljite upit kroz formu, javite se u DM na Instagramu @freshko.pg ili pozovite 069 641 937 (Đoko).",
   },
 ];

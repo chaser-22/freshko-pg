@@ -1,12 +1,12 @@
 :root {
-  --ink: #102718;
-  --ink-2: #173720;
-  --lime: #d9ff43;
-  --acid: #bdf41f;
-  --paper: #f2f0e8;
-  --paper-2: #e8e6dc;
-  --line: rgba(16, 39, 24, .18);
-  --muted: rgba(16, 39, 24, .63);
+  --ink: #101114;
+  --ink-2: #1b1d21;
+  --lime: #f4c400;
+  --acid: #ffd735;
+  --paper: #f4f1e8;
+  --paper-2: #e8e3d8;
+  --line: rgba(16, 17, 20, .18);
+  --muted: rgba(16, 17, 20, .64);
   --mx: 50vw;
   --my: 50vh;
 }
@@ -23,21 +23,21 @@ button { color: inherit; }
 .skip-link { position: fixed; left: 12px; top: -60px; z-index: 999; background: var(--lime); padding: 12px 16px; transition: top .2s; }
 .skip-link:focus { top: 12px; }
 .site-shell { position: relative; min-height: 100vh; isolation: isolate; }
-.pointer-glow { position: fixed; inset: 0; z-index: -4; pointer-events: none; background: radial-gradient(420px circle at var(--mx) var(--my), rgba(217,255,67,.18), transparent 68%); }
+.pointer-glow { position: fixed; inset: 0; z-index: -4; pointer-events: none; background: radial-gradient(420px circle at var(--mx) var(--my), rgba(244,196,0,.18), transparent 68%); }
 .ambient { position: fixed; border-radius: 50%; filter: blur(72px); z-index: -5; pointer-events: none; opacity: .35; }
 .ambient-a { width: 46vw; height: 46vw; right: -15vw; top: 12vh; background: var(--lime); }
-.ambient-b { width: 38vw; height: 38vw; left: -17vw; top: 58vh; background: #a8e3af; opacity: .26; }
+.ambient-b { width: 38vw; height: 38vw; left: -17vw; top: 58vh; background: #c8b66c; opacity: .26; }
 
 .intro { position: fixed; inset: 0; z-index: 1000; background: var(--ink); color: var(--paper); display: grid; place-items: center; overflow: hidden; transition: opacity .45s ease, visibility .45s ease; }
 .intro.is-done { opacity: 0; visibility: hidden; }
 .intro-noise, .intro::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
 .intro-noise { opacity: .06; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E"); }
 .intro::after { background: radial-gradient(circle at 50% 50%, transparent 0 20%, rgba(0,0,0,.34) 75%); }
-.intro-orbit { position: absolute; border: 1px solid rgba(217,255,67,.18); border-radius: 50%; animation: orbit 8s linear infinite; }
+.intro-orbit { position: absolute; border: 1px solid rgba(244,196,0,.18); border-radius: 50%; animation: orbit 8s linear infinite; }
 .intro-orbit-a { width: 54vmin; height: 54vmin; }
 .intro-orbit-b { width: 72vmin; height: 72vmin; animation-direction: reverse; animation-duration: 12s; }
 .intro-lockup { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.intro-mark { width: 108px; height: 108px; border-radius: 28px; background: var(--lime); color: var(--ink); display: grid; place-items: center; font: 800 64px/1 Syne; transform: rotate(-4deg); box-shadow: 0 20px 80px rgba(217,255,67,.16); }
+.intro-mark { width: 108px; height: 108px; border-radius: 28px; background: var(--lime); color: var(--ink); display: grid; place-items: center; font: 800 64px/1 Syne; transform: rotate(-4deg); box-shadow: 0 20px 80px rgba(244,196,0,.16); }
 .intro-word { font: 800 clamp(38px, 6vw, 86px)/.9 Syne; letter-spacing: -.07em; }
 .intro-progress { width: min(330px, 64vw); height: 2px; background: rgba(255,255,255,.16); overflow: hidden; }
 .intro-progress span { display: block; height: 100%; background: var(--lime); transform-origin: left; transition: transform .08s linear; }
@@ -80,9 +80,60 @@ button { color: inherit; }
 .hero-art { position: relative; min-height: 540px; }
 .hero-disc { position: absolute; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1px rgba(16,39,24,.1), 0 34px 80px rgba(16,39,24,.1); }
 .hero-disc span { font: 500 10px/1 DM Mono; letter-spacing: .18em; transform: rotate(16deg); }
-.disc-one { width: min(37vw, 530px); aspect-ratio: 1; right: 0; top: 4%; background: linear-gradient(145deg, var(--lime), #f0ff9e); animation: float-a 7s ease-in-out infinite; }
-.disc-two { width: min(25vw, 360px); aspect-ratio: 1; left: 2%; bottom: 1%; background: radial-gradient(circle at 35% 30%, #faf9f2, #c6d2c6); animation: float-b 8.5s ease-in-out infinite; }
+.disc-one { width: min(37vw, 530px); aspect-ratio: 1; right: 0; top: 4%; background: linear-gradient(145deg, var(--lime), #ffe56b); animation: float-a 7s ease-in-out infinite; }
+.disc-two { width: min(25vw, 360px); aspect-ratio: 1; left: 2%; bottom: 1%; background: radial-gradient(circle at 35% 30%, #faf9f2, #d2cec4); animation: float-b 8.5s ease-in-out infinite; }
 .hero-badge { position: absolute; right: 6%; bottom: 7%; width: 126px; height: 154px; border-radius: 64px 64px 18px 18px; background: var(--ink); color: var(--lime); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; transform: rotate(8deg); box-shadow: 0 30px 70px rgba(16,39,24,.25); }
 .hero-badge strong { font: 800 62px/1 Syne; }
 .hero-badge small { font: 400 8px/1 DM Mono; letter-spacing: .12em; }
 .hero-bottom { display: flex; justify-content: space-between; padding-top: 22px; border-top: 1px solid var(--line); font: 400 9px/1 DM Mono; letter-spacing: .12em; color: var(--muted); }
+
+
+/* Freshko official-media hero */
+.hero-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin-top: 22px;
+  font: 500 10px/1.4 DM Mono;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.hero-contact a {
+  font-weight: 600;
+  border-bottom: 1px solid var(--ink);
+}
+.hero-contact span { color: var(--muted); }
+
+.hero-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 600px;
+  perspective: 1200px;
+}
+.hero-poster {
+  position: absolute;
+  inset: 3% 5% 5% 8%;
+  overflow: hidden;
+  border-radius: 30px;
+  background: #090a0c;
+  border: 1px solid rgba(16,17,20,.18);
+  box-shadow: 0 36px 90px rgba(16,17,20,.24);
+  transform: rotate(2.25deg);
+}
+.hero-poster img { object-fit: cover; }
+.hero-poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+  border-radius: inherit;
+}
+.hero-art .hero-badge {
+  right: 0;
+  bottom: 1%;
+  background: var(--lime);
+  color: var(--ink);
+  z-index: 2;
+}

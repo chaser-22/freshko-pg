@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { comparisonWork } from "@/lib/content";
 import { CSSProperties, FormEvent, useRef } from "react";
 
@@ -22,10 +21,25 @@ function Comparison({ item }: { item: (typeof comparisonWork)[number] }) {
 
   return (
     <article className="compare-card" data-reveal>
-      <div className="compare-top"><span>{item.title}</span><small>PRE / POSLIJE</small></div>
-      <div className="compare-stage" ref={stageRef} style={{ "--compare": "54%" } as CSSProperties}>
-        <Image src={item.before} alt={`${item.title} prije čišćenja`} fill sizes="(max-width: 900px) 100vw, 50vw" />
-        <div className="compare-after"><Image src={item.after} alt={`${item.title} poslije čišćenja`} fill sizes="(max-width: 900px) 100vw, 50vw" /></div>
+      <div className="compare-top"><span>{item.title}</span><small>PRIJE / POSLIJE</small></div>
+      <div
+        className="compare-stage"
+        ref={stageRef}
+        style={{ "--compare": "54%" } as CSSProperties}
+        aria-label={`Freshko rezultat za ${item.title}: prije i poslije čišćenja`}
+      >
+        <div
+          className="compare-image"
+          style={{ "--image-position": item.beforePosition } as CSSProperties}
+          aria-hidden="true"
+        />
+        <div className="compare-after">
+          <div
+            className="compare-image"
+            style={{ "--image-position": item.afterPosition } as CSSProperties}
+            aria-hidden="true"
+          />
+        </div>
         <span className="compare-label before-label">PRIJE</span>
         <span className="compare-label after-label">POSLIJE</span>
         <div className="compare-line"><span>↔</span></div>

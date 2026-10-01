@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 
 const nav = [
   ["Usluge", "#usluge"],
+  ["Cjenovnik", "#cjenovnik"],
   ["Rezultati", "#rezultati"],
-  ["Proces", "#proces"],
   ["FAQ", "#faq"],
 ];
 

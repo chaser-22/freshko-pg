@@ -1,4 +1,4 @@
-.footer { background: #0b1d11; color: var(--paper); padding: 90px 5vw 32px; }
+.footer { background: #090a0c; color: var(--paper); padding: 90px 5vw 32px; }
 .footer-cta { display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 80px; }
 .footer-cta > p { font: 500 10px/1 DM Mono; letter-spacing: .14em; color: var(--lime); }
 .footer-cta h2 { margin: 18px 0 34px; font: 650 clamp(58px, 9vw, 150px)/.86 Syne; letter-spacing: -.07em; max-width: 1100px; }
@@ -220,4 +220,73 @@
   .legal .eyebrow {
     margin-top: 64px;
   }
+}
+
+
+/* Freshko media + pricing responsive pass */
+.pricing-copy .eyebrow {
+  margin: 0 0 18px;
+}
+.pricing-copy h2 + .pricing-lead {
+  margin-top: 26px;
+}
+.pricing-lead + .price-groups {
+  margin-top: 38px;
+}
+
+@media (max-width: 980px) {
+  .hero-art {
+    min-height: 570px;
+    margin-top: 24px;
+  }
+  .hero-poster {
+    inset: 4% 8% 7%;
+    transform: rotate(1deg);
+  }
+  .hero-art .hero-badge {
+    right: 5%;
+    bottom: 1%;
+  }
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 52px;
+  }
+  .pricing-poster {
+    width: min(680px, 100%);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero-art {
+    min-height: 440px;
+    margin-top: 22px;
+  }
+  .hero-poster {
+    inset: 3% 2% 7%;
+    border-radius: 22px;
+  }
+  .hero-art .hero-badge {
+    right: 0;
+    bottom: 0;
+  }
+  .hero-contact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .pricing-grid { gap: 34px; }
+  .pricing-poster { border-radius: 20px; }
+  .pricing-copy h2 { font-size: clamp(40px, 12vw, 58px); line-height: .98; }
+  .pricing-copy .eyebrow { margin-bottom: 14px; }
+  .pricing-lead { margin-top: 20px; }
+  .price-groups {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .price-group-note { grid-column: auto; }
+  .price-group { padding: 18px; }
+  .price-group > div p { gap: 12px; }
 }
