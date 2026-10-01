@@ -1,0 +1,107 @@
+name: Import Freshko Instagram Media
+
+on:
+  push:
+    paths:
+      - ".github/workflows/import-instagram.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  import-media:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Instagram reader
+        run: pip install --disable-pip-version-check instaloader requests
+      - name: Download public Freshko images
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import requests
+          import instaloader
+
+          username = "freshko.pg"
+          output = Path("public/media/freshko")
+          output.mkdir(parents=True, exist_ok=True)
+
+          loader = instaloader.Instaloader(
+              download_pictures=False,
+              download_videos=False,
+              download_video_thumbnails=False,
+              download_geotags=False,
+              download_comments=False,
+              save_metadata=False,
+              compress_json=False,
+              quiet=True,
+          )
+
+          profile = instaloader.Profile.from_username(loader.context, username)
+          manifest = []
+          count = 0
+
+          for post in profile.get_posts():
+              if count >= 12:
+                  break
+
+              nodes = []
+              if post.typename == "GraphSidecar":
+                  nodes = [node for node in post.get_sidecar_nodes() if not node.is_video]
+              elif not post.is_video:
+                  nodes = [post]
+
+              for node in nodes:
+                  if count >= 12:
+                      break
+                  url = getattr(node, "display_url", None) or getattr(node, "url", None)
+                  if not url:
+                      continue
+
+                  response = requests.get(
+                      url,
+                      timeout=30,
+                      headers={
+                          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36",
+                          "Referer": f"https://www.instagram.com/{username}/",
+                      },
+                  )
+                  response.raise_for_status()
+
+                  filename = f"ig-{count + 1:02d}.jpg"
+                  (output / filename).write_bytes(response.content)
+                  manifest.append({
+                      "file": f"/media/freshko/{filename}",
+                      "shortcode": post.shortcode,
+                      "date": post.date_utc.isoformat(),
+                      "caption": (post.caption or "")[:400],
+                  })
+                  count += 1
+
+          if not manifest:
+              raise RuntimeError("No public Freshko images were returned by Instagram")
+
+          (output / "manifest.json").write_text(
+              json.dumps(manifest, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(f"Downloaded {len(manifest)} Freshko images")
+          PY
+      - name: Commit imported media
+        run: |
+          git config user.name "Freshko media bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/media/freshko
+          if git diff --cached --quiet; then
+            echo "No media changes"
+          else
+            git commit -m "Import Freshko Instagram media"
+            git push
+          fi
