@@ -8,7 +8,6 @@ import Booking from "@/components/Booking";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { brand, instagramUrl, priceGroups, services } from "@/lib/content";
-import type { CSSProperties } from "react";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -51,10 +50,11 @@ export default function Home() {
             <div className="hero-art">
               <div className="hero-poster">
                 <Image
-                  src="/media/freshko/brand-poster.webp"
+                  src="/media/freshko/hq/hero-brand.png"
                   alt="Freshko oprema za dubinsko čišćenje"
                   fill
                   priority
+                  quality={95}
                   sizes="(max-width: 980px) 88vw, 42vw"
                 />
               </div>
@@ -86,18 +86,22 @@ export default function Home() {
           <div className="section-kicker" data-reveal><span>02</span><p>USLUGE</p></div>
           <div className="services-heading" data-reveal>
             <p className="eyebrow">FRESHKO / DUBINSKO ČIŠĆENJE</p>
-            <h2>Za dom. Za auto. Za osjećaj svježine.</h2>
+            <h2>Za dom. Za osjećaj svježine.</h2>
           </div>
           <div className="service-list">
-            {services.map((service) => (
+            {services.map((service, index) => (
               <article className="service-row" key={service.id} data-reveal>
                 <div className="service-number">{service.number}</div>
-                <div
-                  className="service-media"
-                  role="img"
-                  aria-label={`${service.title} — primjer Freshko rada`}
-                  style={{ "--media-position": service.mediaPosition } as CSSProperties}
-                >
+                <div className="service-media">
+                  <Image
+                    src={service.image}
+                    alt={`${service.title} — Freshko rad`}
+                    fill
+                    quality={95}
+                    priority={index === 0}
+                    sizes="(max-width: 620px) 100vw, (max-width: 980px) 80vw, 42vw"
+                    style={{ objectPosition: service.mediaPosition }}
+                  />
                   <span className="media-chip">{service.eyebrow}</span>
                 </div>
                 <div className="service-copy">
@@ -116,9 +120,10 @@ export default function Home() {
           <div className="pricing-grid">
             <div className="pricing-poster" data-reveal>
               <Image
-                src="/media/freshko/pricing-poster.webp"
+                src="/media/freshko/hq/pricing.png"
                 alt="Freshko objavljeni cjenovnik za namještaj i dušeke"
                 fill
+                quality={95}
                 loading="eager"
                 sizes="(max-width: 980px) 100vw, 42vw"
               />

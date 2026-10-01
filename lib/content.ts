@@ -17,7 +17,8 @@ export const services = [
     title: "Namještaj",
     short: "Stolice, fotelje, dvosjedi, trosjedi i ugaone garniture — temeljno čišćenje na vašoj adresi.",
     body: "Pristup prilagođavamo materijalu i stanju površine, sa fokusom na uredan završni rezultat i svježiji osjećaj u prostoru.",
-    mediaPosition: "0% 0%",
+    image: "/media/freshko/hq/sofa-before-after.png",
+    mediaPosition: "center 77%",
   },
   {
     id: "tepisi",
@@ -26,7 +27,8 @@ export const services = [
     title: "Tepisi",
     short: "Dubinsko čišćenje tepiha uz procjenu prema veličini i materijalu.",
     body: "Tretman prilagođavamo vlaknima i stanju tepiha, uz pažljiv rad na vidljivoj prljavštini i tragovima svakodnevne upotrebe.",
-    mediaPosition: "100% 0%",
+    image: "/media/freshko/hq/blue-carpet-before-after.png",
+    mediaPosition: "center 78%",
   },
   {
     id: "duseci",
@@ -35,29 +37,33 @@ export const services = [
     title: "Dušeci",
     short: "Dubinsko čišćenje malih i velikih dušeka, sa dolaskom na kućnu adresu.",
     body: "Proces je usmjeren na temeljno osvježenje tekstilne površine i uredan rezultat, uz jasne instrukcije nakon tretmana.",
-    mediaPosition: "0% 100%",
+    image: "/media/freshko/hq/pricing.png",
+    mediaPosition: "center 62%",
   },
   {
     id: "vozila",
     number: "04",
-    eyebrow: "Auto enterijer",
-    title: "Vozila",
-    short: "Sjedišta i tekstilni djelovi enterijera — precizno, detaljno i bez preskakanja.",
-    body: "Radimo tekstilne površine u vozilu sa fokusom na vidljivu razliku i prijatniji, uredniji enterijer.",
-    mediaPosition: "100% 100%",
+    eyebrow: "Profesionalna oprema",
+    title: "Freshko tretman",
+    short: "Profesionalna oprema, pažljiv rad i proces prilagođen tekstilnim površinama.",
+    body: "Za dodatne površine i specifične zahtjeve pošaljite fotografiju u DM ili kroz formu, pa potvrđujemo mogućnost tretmana i procjenu.",
+    image: "/media/freshko/hq/hero-brand.png",
+    mediaPosition: "center 58%",
   },
 ];
 
 export const comparisonWork = [
   {
     title: "Namještaj",
-    beforePosition: "0% 0%",
-    afterPosition: "100% 0%",
+    image: "/media/freshko/hq/sofa-before-after.png",
+    beforePosition: "center 16%",
+    afterPosition: "center 84%",
   },
   {
-    title: "Tepisi",
-    beforePosition: "0% 100%",
-    afterPosition: "100% 100%",
+    title: "Tepih",
+    image: "/media/freshko/hq/carpet-before-after.png",
+    beforePosition: "center 16%",
+    afterPosition: "center 84%",
   },
 ];
 
@@ -86,7 +92,7 @@ export const bookingServices = [
   "Dubinsko čišćenje namještaja",
   "Dubinsko čišćenje tepiha",
   "Dubinsko čišćenje dušeka",
-  "Dubinsko čišćenje enterijera vozila",
+  "Druga tekstilna površina / konsultacija",
   "Više usluga",
   "Nisam siguran / treba mi preporuka",
 ];
