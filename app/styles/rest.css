@@ -76,3 +76,148 @@
   .intro { display: none; }
   [data-reveal] { opacity: 1!important; transform: none!important; filter: none!important; }
 }
+
+/* Global type-rhythm pass: keep every text block visually separated. */
+.hero-copy,
+.results-intro,
+.booking-copy,
+.faq-grid > div:first-child,
+.promise-card > div:first-child,
+.legal,
+.footer-cta {
+  text-wrap: pretty;
+}
+
+.results-intro .eyebrow,
+.booking-copy .eyebrow,
+.faq-grid > div:first-child .eyebrow,
+.promise-card > div:first-child .eyebrow {
+  margin: 0 0 18px;
+}
+
+.results-intro h2,
+.booking-copy h2,
+.faq-grid > div:first-child h2,
+.promise-card h2 {
+  margin-top: 0;
+}
+
+.results-intro h2 + p,
+.booking-copy h2 + p {
+  margin-top: 24px;
+  margin-bottom: 0;
+}
+
+.booking-copy .eyebrow + h2,
+.faq-grid > div:first-child .eyebrow + h2,
+.promise-card .eyebrow + h2 {
+  margin-top: 0;
+}
+
+.service-copy > p + h3 {
+  margin-top: 0;
+}
+
+.service-copy h3 + strong {
+  margin-top: 22px;
+}
+
+.service-copy strong + span {
+  margin-top: 18px;
+}
+
+.manifesto-copy > p + .mini-proof {
+  margin-top: 0;
+}
+
+.footer-cta > p {
+  margin: 0 0 18px;
+}
+
+.footer-cta h2 {
+  margin-top: 0;
+}
+
+.footer-grid span + a,
+.footer-grid span + p {
+  margin-top: 2px;
+}
+
+.legal .eyebrow {
+  margin: 90px 0 18px;
+}
+
+.legal h1 {
+  margin: 0 0 30px;
+  line-height: 1.04;
+}
+
+.legal h1 + p {
+  margin-top: 0;
+}
+
+.legal p + p {
+  margin-top: 20px;
+}
+
+@media (max-width: 620px) {
+  .hero h1,
+  .manifesto h2,
+  .services-heading h2,
+  .results-intro h2,
+  .faq h2,
+  .booking h2,
+  .promise-card h2,
+  .footer-cta h2 {
+    line-height: .98;
+  }
+
+  .hero-overline {
+    margin-bottom: 24px;
+  }
+
+  .hero-lead {
+    margin-top: 26px;
+    line-height: 1.65;
+  }
+
+  .results-intro .eyebrow,
+  .booking-copy .eyebrow,
+  .faq-grid > div:first-child .eyebrow,
+  .promise-card > div:first-child .eyebrow {
+    margin-bottom: 14px;
+  }
+
+  .results-intro h2 + p,
+  .booking-copy h2 + p {
+    margin-top: 20px;
+  }
+
+  .service-copy > p {
+    margin-bottom: 12px;
+  }
+
+  .service-copy h3 + strong {
+    margin-top: 18px;
+  }
+
+  .service-copy strong + span {
+    margin-top: 14px;
+  }
+
+  .faq-item button {
+    gap: 20px;
+  }
+
+  .faq-answer p {
+    padding-top: 2px;
+  }
+
+  .legal {
+    padding-top: 96px;
+  }
+
+  .legal .eyebrow {
+    margin-top: 64px;
+  }
+}
